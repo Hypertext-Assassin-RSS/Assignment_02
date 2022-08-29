@@ -5,6 +5,7 @@ const db = require('../config/config.db')
 
 const app = express();
 const mysql = require('mysql')
+const e = require("express");
 
 app.use(express.json())
 
@@ -43,5 +44,14 @@ router.post('/',(req, res) => {
     })
 })
 
-
+router.get('/',(req, res) => {
+    let query = 'SELECT * FROM item'
+    connection.query(query,function (err,result) {
+        if (err){
+            res.send('Load Data Fail Error :'+err)
+        }else {
+            res.send({message:'Load Data Success',result:result})
+        }
+    })
+})
 module.exports = router
