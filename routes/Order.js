@@ -71,4 +71,17 @@ router.put('/',(req, res) => {
     })
 })
 
+router.delete('/',(req, res) =>{
+    const orderId = req.query.orderId
+
+    let query = "DELETE FROM `Order` WHERE orderId = ?"
+    connection.query(query,[orderId],function (err, result, fields) {
+        if (err){
+            res.send('Order '+orderId+' Delete Failed :'+err)
+        }else {
+            res.send({message:'Order '+req.query.orderId + ' Deleted!'})
+        }
+    })
+})
+
 module.exports = router
