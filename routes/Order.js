@@ -13,7 +13,6 @@ connection.connect(function (error) {
     if (error){
         console.log("Connection fail :"+error)
     }else {
-        console.log('MySQL Connect')
         let query = 'CREATE TABLE IF NOT EXISTS `Order`(orderId VARCHAR(255) PRIMARY KEY , customerId VARCHAR(255) ,total double ,qty int)'
         connection.query(query,function (err,result){
             if (err){
@@ -23,6 +22,25 @@ connection.connect(function (error) {
             }
         })
     }
+})
+
+router.post('/',(req, res) => {
+
+    console.log(req.body)
+
+    const orderId = req.body.orderId
+    const customerId = req.body.customerId
+    const total = req.body.total
+    const qty = req.body.qty
+
+    let query = 'INSERT INTO `Order`(orderId, customerId, total, qty) VALUES (?,?,?,?)'
+    connection.query(query,[orderId,customerId,total,qty],function (err,result) {
+        if (err){
+            res.send('Error :'+err)
+        }else {
+            res.send('Order '+orderId+' placed')
+        }
+    })
 })
 
 module.exports = router
