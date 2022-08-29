@@ -25,4 +25,15 @@ connection.connect(function (error) {
     }
 })
 
+router.get('/',(req, res) => {
+    let query = 'SELECT * FROM customer'
+    connection.query(query,function (err, result, fields) {
+        if (err){
+            res.send('Data Load Failed :'+err)
+        }else {
+            res.send({message:'Get All Success',result:result})
+        }
+    })
+})
+
 module.exports = router
