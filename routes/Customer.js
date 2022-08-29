@@ -82,4 +82,17 @@ router.delete('/',(req, res) =>{
         }
     })
 })
+
+router.get('/search',(req, res) => {
+    const id = req.query.id
+
+    let query = 'SELECT * FROM Customer WHERE id = ?'
+    connection.query(query,[id],function (err, result, fields) {
+        if (err){
+            res.send('Customer '+id+' Search Failed :'+err)
+        }else {
+            res.send({message:'Customer '+req.query.id + ' Search Success',result:result})
+        }
+    })
+})
 module.exports = router
