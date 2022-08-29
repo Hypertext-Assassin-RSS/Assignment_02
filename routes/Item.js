@@ -71,4 +71,17 @@ router.put('/',(req, res) => {
     })
 })
 
+router.delete('/',(req, res) =>{
+    const id = req.query.id
+
+    let query = "DELETE FROM item WHERE id = ?"
+    connection.query(query,[id],function (err, result, fields) {
+        if (err){
+            res.send('Item '+id+' Delete Failed :'+err)
+        }else {
+            res.send({message:'Item '+req.query.id + ' Deleted!'})
+        }
+    })
+})
+
 module.exports = router
