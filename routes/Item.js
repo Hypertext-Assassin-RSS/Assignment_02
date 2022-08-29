@@ -25,4 +25,23 @@ connection.connect(function (error) {
     }
 })
 
+router.post('/',(req, res) => {
+    console.log(req.body)
+
+    const  id = req.body.id
+    const  name = req.body.name
+    const qty = req.body.qty
+    const  price = req.body.price
+
+    let query = 'INSERT INTO Item(id,name,qty,price) VALUES (?,?,?,?)'
+    connection.query(query,[id,name,qty,price],function (err,resul) {
+        if (err){
+            res.send('Error :'+err)
+        }else {
+            res.send('Item '+id+' is Saved')
+        }
+    })
+})
+
+
 module.exports = router
