@@ -53,4 +53,20 @@ router.post('/',(req, res) => {
     })
 })
 
+
+router.put('/',(req, res) => {
+    const id = req.body.id
+    const name = req.body.name
+    const address = req.body.address
+    const salary = req.body.salary
+
+    let query = 'UPDATE Customer SET name=? , address= ? , salary= ? WHERE id = ?'
+    connection.query(query,[name,address,salary,id],function (err, result, fields) {
+        if (err){
+            res.send('Update Failed :'+err)
+        }else {
+            res.send({message:'Customer '+req.body.id + ' Update Success',result:result.message})
+        }
+    })
+})
 module.exports = router
