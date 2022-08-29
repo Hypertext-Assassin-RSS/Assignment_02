@@ -36,4 +36,21 @@ router.get('/',(req, res) => {
     })
 })
 
+router.post('/',(req, res) => {
+    console.log(req.body)
+    const id = req.body.id
+    const name = req.body.name
+    const address = req.body.address
+    const salary = req.body.salary
+
+    let query = 'INSERT INTO Customer(id, name, address, salary) VALUES (?,?,?,?)'
+    connection.query(query,[id,name,address,salary],function (err, result, fields) {
+        if (err){
+            res.send("Customer Save Fail :"+err)
+        }else {
+            res.send({message:'Customer '+req.body.id + ' Saved'})
+        }
+    })
+})
+
 module.exports = router
