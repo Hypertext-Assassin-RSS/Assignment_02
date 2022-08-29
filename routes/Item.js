@@ -14,7 +14,6 @@ connection.connect(function (error) {
     if (error){
         console.log("Connection fail :"+error)
     }else {
-        console.log('MySQL Connect')
         let query = 'CREATE TABLE IF NOT EXISTS Item(id VARCHAR(255) PRIMARY KEY,name VARCHAR(255), qty int, price double)'
         connection.query(query,function (err,result){
             if (err){
@@ -54,4 +53,22 @@ router.get('/',(req, res) => {
         }
     })
 })
+
+router.put('/',(req, res) => {
+
+    const  id = req.body.id
+    const  name = req.body.name
+    const qty = req.body.qty
+    const  price = req.body.price
+
+    let query = 'UPDATE Item SET name = ?,qty = ?,price = ? WHERE id = ?'
+    connection.query(query,[name,qty,price,id],function (err,result) {
+        if (err){
+            res.send('Update Failed :'+err)
+        }else {
+            res.send('Item '+id+' Updated')
+        }
+    })
+})
+
 module.exports = router
