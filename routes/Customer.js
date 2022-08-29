@@ -14,6 +14,14 @@ connection.connect(function (error) {
         console.log("Connection fail :"+error)
     }else {
         console.log('MySQL Connect')
+        let query = 'CREATE TABLE IF NOT EXISTS Customer(id VARCHAR(255) PRIMARY KEY,name VARCHAR(255), address VARCHAR(255), salary double)'
+        connection.query(query,function (err,result){
+            if (err){
+                console.log(err)
+            }else if (result.warningCount == 0){
+                console.log('Customer Table Create')
+            }
+        })
     }
 })
 
