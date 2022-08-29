@@ -43,4 +43,15 @@ router.post('/',(req, res) => {
     })
 })
 
+router.get('/' ,(req, res) => {
+    let query = 'SELECT * FROM `Order`'
+    connection.query(query,function (err,result) {
+        if (err){
+            res.send('Error :'+err)
+        }else {
+            res.send({message:'Get All Order Success',result:result,})
+        }
+    })
+})
+
 module.exports = router
