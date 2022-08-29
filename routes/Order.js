@@ -54,4 +54,21 @@ router.get('/' ,(req, res) => {
     })
 })
 
+router.put('/',(req, res) => {
+
+    const orderId = req.body.orderId
+    const customerId = req.body.customerId
+    const total = req.body.total
+    const qty = req.body.qty
+
+    let query = 'UPDATE `Order` SET customerId = ?,total = ?, qty = ? WHERE orderId = ?'
+    connection.query(query,[customerId,total,qty,orderId],function (err,result) {
+        if (err){
+            res.send('Update Failed :'+err)
+        }else {
+            res.send('Order '+orderId+' Updated')
+        }
+    })
+})
+
 module.exports = router
